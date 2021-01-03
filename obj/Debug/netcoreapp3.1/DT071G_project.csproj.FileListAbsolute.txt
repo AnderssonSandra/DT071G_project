@@ -1,0 +1,13 @@
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\DT071G_project.exe
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\DT071G_project.deps.json
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\DT071G_project.runtimeconfig.json
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\DT071G_project.runtimeconfig.dev.json
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\DT071G_project.dll
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\DT071G_project.pdb
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.csprojAssemblyReference.cache
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.AssemblyInfoInputs.cache
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.AssemblyInfo.cs
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.csproj.CoreCompileInputs.cache
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.dll
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.pdb
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.genruntimeconfig.cache
