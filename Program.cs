@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using Console = Colorful.Console;
+using System.Threading.Tasks;
+
 
 namespace DT071G_project
 {
@@ -6,7 +10,13 @@ namespace DT071G_project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //create instace of Menus class and call on MainMenu
+            Menus menus = new Menus();
+
+            menus.Mainmenu();
+
         }
+
     }
+
 }

@@ -11,3 +11,8 @@ C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT0
 C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.dll
 C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.pdb
 C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.genruntimeconfig.cache
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\SandraAndersson\source\repos\DT071G_project\obj\Debug\netcoreapp3.1\DT071G_project.csproj.CopyComplete
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\SandraAndersson\source\repos\DT071G_project\bin\Debug\netcoreapp3.1\Colorful.Console.dll
