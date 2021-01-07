@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using System;
 using System.Net;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Drawing;
+using Console = Colorful.Console;
 using System.Threading.Tasks;
 
 namespace DT071G_project
@@ -11,54 +13,127 @@ namespace DT071G_project
     class Api
     {
         //Class to get songs from artist
-        public void GetDataByArtist(string input)
+        public void GetData(string input)
         {
-            string url = "https://api.spotify.com/v1/search?q=" + input + "&type=artist";
-            Console.WriteLine(url);
-            /*HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://api.spotify.com/v1/search?q=" + input + "&type=artist");
+            //spotify get new authorization token
+            string authToken = GetToken();
+
+            //create instance of class
+            HttpClient client = new HttpClient();
+
+            //base adress
+            client.BaseAddress = new Uri("https://api.spotify.com/v1/search");
+
+            //define headers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "BQBTRjRWMIGCvHXcFgSOo091dIJ18-TSKlcpDbQzsz36aIIoI20zpBrx-18RQ6tD9Ojdl51V0Wwx3pVybtwxBf9_sSctm7k2ldUg1_hf4GVa9JMY8ONCrcixuJ4l1GoqY7dy87l24-bNxP_3ulvhWfqmQRS9IGU-zmRT9vmIPIGJJ2unPSj9L2sQqFSVxTpcopr5zqaIfIopoCJyHd6IqqE_fcyssLUGzCnXee_m4zDKxd4a0QkC0fJAP7-7kFXj86fTXYwNE1ZjREj4uZrCwNHD0UljiSIFmqY");
-            HttpResponseMessage response = client.GetAsync("api/Values").Result;  // Blocking call!  
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+
+            HttpResponseMessage response = client.GetAsync("?q=" + input + "&type=track").Result;
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Request Message Information:- \n\n" + response.RequestMessage + "\n");
-                Console.WriteLine("Response Message Header \n\n" + response.Content.Headers + "\n");
+                //save data in string
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                //serialize json data to c# object
+                var searchResult = JsonConvert.DeserializeObject<SearchResult>(jsonData);
+
+                Console.Clear();
+                string searchInput = input.Replace('+', ' ');
+                showSearchResult(searchInput, searchResult);
             }
             else
             {
+                Console.Clear();
+                //write error message
+                Console.WriteLine("\nHoppas! Nu gick det inte att hämta sökresutatet. Läs felmeddelandet nedan:", Color.Red);
                 Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                Console.WriteLine("\nKlicka enter för att gå tillbaka till huvudmenyn", Color.Pink);
+
+                //show main Menu when user press enter
+                ConsoleKeyInfo key = Console.ReadKey();
+                Menus menu = new Menus();
+
+                if (key.Key.Equals(ConsoleKey.Enter))
+                {
+                    Console.Clear();
+                    menu.Mainmenu();
+                }
             }
-            Console.ReadLine();*/
-
-            /*
-             result= json data
-
-            Serialize data function (jsonData)
-            change from json data to list, send to show data 
-
-            show data(list)
-            show searchresult list 
-            klicka enter för att gå tillbaka till huvudmenyn 
-
-             */
-
+            Console.ReadLine();
         }
 
-        //Class to get songs from song name
-        public void GetDataByTitle(string input)
+        //get token
+        public string GetToken()
         {
-            string url = "https://api.spotify.com/v1/search?q=" + input + "&type=track";
-            Console.WriteLine(url);
+            string clientId = "85b32c3f97a74efcade8f9768c89442d";
+            string clientSecret = "49234c11effd4e71b8a6bdae1307fc4a";
+            string credentials = String.Format("{0}:{1}", clientId, clientSecret);
+
+            HttpClient client = new HttpClient();
+
+
+            //Define Headers
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(credentials)));
+
+            //Prepare Request Body
+            List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>();
+            requestData.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
+
+            FormUrlEncodedContent requestBody = new FormUrlEncodedContent(requestData);
+
+            //Request Token
+            var request = client.PostAsync("https://accounts.spotify.com/api/token", requestBody).Result;
+            var response = request.Content.ReadAsStringAsync().Result;
+            var tokenResult = JsonConvert.DeserializeObject<AccessToken>(response);
+
+
+            return tokenResult.access_token;
+
         }
 
-        //funktion som connectar till api och hämtar json format för artist: getDataByArtist
+        //show search result
+        public void showSearchResult(string input, SearchResult searchResult)
+        {
+            Console.WriteLine("Du sökte efter: " + input, Color.DeepPink);
+            Console.WriteLine("==================================\n", Color.DeepPink);
 
-        //funktion som connectar till api och hämtar json format för songnamn:getDataBySongname
+            int i = 0;
+            if (searchResult.tracks.items == null)
+            {
+                Console.WriteLine("Det fanns inga låtar på din sökning");
+            }
+            else
+            {
+                foreach (Item items in searchResult.tracks.items)
+                {
+                    string singer = "";
+                    foreach (Artist artist in items.artists)
+                    {
+                        singer += artist.name + ", ";
+                    }
+                    Console.WriteLine($"Låtnamn: {items.name}");
+                    Console.WriteLine($"Artist: {singer}");
+                    Console.WriteLine("------------------------------------------------------------------------------------");
 
-        //funktion som konverterar data till C# object : serialize 
+                    i++;
+                }
+            }
 
-        //funktion som visar data: showSearchResult 
+
+            Console.WriteLine("\nKlicka enter för att gå tillbaka till huvudmenyn", Color.Pink);
+
+            //show main Menu when user press enter
+            ConsoleKeyInfo key = Console.ReadKey();
+            Menus menu = new Menus();
+
+            if (key.Key.Equals(ConsoleKey.Enter))
+            {
+                Console.Clear();
+                menu.Mainmenu();
+            }
+        }
 
 
     }

@@ -6,10 +6,23 @@ namespace DT071G_project
 {
     class SearchResult
     {
-        public string Name { get; set; }
+        public Track tracks { get; set; }
+    }
 
-        public string Song { get; set; }
+    class Track
+    {        
+        public List<Item> items { get; set; }
+    }
 
-        public string Link { get; set; }
+    class Item
+    {
+        public string name { get; set; }
+        public List<Artist> artists { get; set; }
+
+    }
+
+    class Artist
+    {
+        public string name { get; set; }
     }
 }

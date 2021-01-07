@@ -42,7 +42,7 @@ namespace DT071G_project
                     string artist = Console.ReadLine().ToLower();
                     //replace space with +
                     
-                    api.GetDataByArtist(artist.Replace(' ', '+'));
+                    api.GetData(artist.Replace(' ', '+'));
 
                     break;
                 case "3":
@@ -52,7 +52,7 @@ namespace DT071G_project
                     string title = Console.ReadLine().ToLower();
                     //replace space with +
 
-                    api.GetDataByTitle(title.Replace(' ', '+'));
+                    api.GetData(title.Replace(' ', '+'));
                     break;
                 case "x":
                     Console.Clear();
