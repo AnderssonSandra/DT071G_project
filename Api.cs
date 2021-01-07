@@ -1,21 +1,19 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Net;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Drawing;
 using Console = Colorful.Console;
-using System.Threading.Tasks;
 
 namespace DT071G_project
 {
     class Api
     {
-        //Class to get songs from artist
+        //Class to get songs from spotify api
         public void GetData(string input)
         {
-            //spotify get new authorization token
+            //get new authorization token
             string authToken = GetToken();
 
             //create instance of class
@@ -70,7 +68,6 @@ namespace DT071G_project
 
             HttpClient client = new HttpClient();
 
-
             //Define Headers
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -88,9 +85,7 @@ namespace DT071G_project
             var response = request.Content.ReadAsStringAsync().Result;
             var tokenResult = JsonConvert.DeserializeObject<AccessToken>(response);
 
-
             return tokenResult.access_token;
-
         }
 
         //show search result
@@ -100,41 +95,24 @@ namespace DT071G_project
             Console.WriteLine("==================================\n", Color.DeepPink);
 
             int i = 0;
-            if (searchResult.tracks.items == null)
+
+            foreach (Item items in searchResult.tracks.items)
             {
-                Console.WriteLine("Det fanns inga låtar på din sökning");
-            }
-            else
-            {
-                foreach (Item items in searchResult.tracks.items)
+                string singer = "";
+                foreach (Artist artist in items.artists)
                 {
-                    string singer = "";
-                    foreach (Artist artist in items.artists)
-                    {
-                        singer += artist.name + ", ";
-                    }
-                    Console.WriteLine($"Låtnamn: {items.name}");
-                    Console.WriteLine($"Artist: {singer}");
-                    Console.WriteLine("------------------------------------------------------------------------------------");
-
-                    i++;
+                    singer += artist.name + "  ";
                 }
+                Console.WriteLine($"Låtnamn: {items.name}");
+                Console.WriteLine($"Artist: {singer}");
+                Console.WriteLine("------------------------------------------------------------------------------------", Color.Pink);
+
+                i++;
             }
 
-
-            Console.WriteLine("\nKlicka enter för att gå tillbaka till huvudmenyn", Color.Pink);
-
-            //show main Menu when user press enter
-            ConsoleKeyInfo key = Console.ReadKey();
+            //show search menu
             Menus menu = new Menus();
-
-            if (key.Key.Equals(ConsoleKey.Enter))
-            {
-                Console.Clear();
-                menu.Mainmenu();
-            }
+            menu.SearchMenu();
         }
-
-
     }
 }

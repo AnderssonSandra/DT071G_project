@@ -41,10 +41,7 @@ namespace DT071G_project
 
                 //return list
                 return favoriteMusicList;
-
             }
-
         }
-
     }
 }

@@ -19,7 +19,8 @@ namespace DT071G_project
             Console.WriteLine("====================================================\n", Color.Pink);
 
             // Show options
-            Console.WriteLine("MIN MUSIKMENY:\n", Color.Pink);
+            Console.WriteLine("MIN MUSIKMENY:", Color.DeepPink);
+            Console.WriteLine("==========================\n", Color.DeepPink);
             Console.WriteLine("1: Se dina favoritlåtar\n");
             Console.WriteLine("2: Sök på en artist på spotify för att hitta favoritlåt\n");
             Console.WriteLine("3: Sök på en låtnamn på spotify för att hitta favoritlåt\n");
@@ -178,6 +179,35 @@ namespace DT071G_project
 
                 default:
                     Messages("MusicMenuOptionError");
+                    break;
+            }
+        }
+
+        public void SearchMenu()
+        {
+                        //Display title
+            Console.WriteLine("\nSökMeny:", Color.DeepPink);
+            Console.WriteLine("==========================\n", Color.DeepPink);
+
+            //show options
+            Console.WriteLine("1: Gå tillbaka till huvudmenyn");
+            Console.WriteLine("2: Gå till dina favoritlåtar");
+
+            //Ask user to choose an option and read input
+            Console.Write("\nVilket alternativ har du valt? Skriv i siffran och klicka enter \n", Color.Pink);
+            string searchOption = Console.ReadLine().ToLower();
+
+            //switch, choose case based on input
+            switch (searchOption)
+            {
+                case "1":
+                    Console.Clear();
+                    Mainmenu();
+                    break;
+
+                case "2":
+                    Console.Clear();
+                    MusicMenu();
                     break;
             }
         }

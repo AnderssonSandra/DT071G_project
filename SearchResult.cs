@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DT071G_project
 {
+    //classes to hold search data
     class SearchResult
     {
         public Track tracks { get; set; }
